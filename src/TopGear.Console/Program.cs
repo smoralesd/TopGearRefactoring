@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TopGear.Console
+﻿namespace TopGear.Console
 {
     public class Program
     {
