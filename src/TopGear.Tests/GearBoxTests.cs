@@ -9,38 +9,209 @@ namespace TopGear.Tests
     public class GearBoxTests
     {
         [Fact]
-        public void FirstGear()
+        public void HighRpmOnFirstGear()
         {
-            var gearBox = new GearBox();
-            var spy = ObjectSpy.For(gearBox);
-
-            const int input = 1000;
-            gearBox.doit(input);
-
-            var internalE = spy.GetField<int>("e");
-            internalE.ShouldBeEquivalentTo(input);
-
-            var internalS = spy.GetField<int>("s");
-            internalS.ShouldBeEquivalentTo(1);
+            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
-        public void SecondGear()
+        public void HighRpmOnSecondGear()
         {
-            var gearBox = new GearBox();
-            var spy = ObjectSpy.For(gearBox);
-
-            const int input = 3000;
-            gearBox.doit(input);
-            gearBox.doit(input);
-
-            var internalE = spy.GetField<int>("e");
-            internalE.ShouldBeEquivalentTo(input);
-
-            var internalS = spy.GetField<int>("s");
-            internalS.ShouldBeEquivalentTo(2);
+            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            runner.AccelerateToGearUpAndAssert();
         }
 
+        [Fact]
+        public void HighRpmOnThirdGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            runner.AccelerateToGearUpAndAssert();
+        }
+
+        [Fact]
+        public void HighRpmOnFourthGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            runner.AccelerateToGearUpAndAssert();
+        }
+
+        [Fact]
+        public void HighRpmOnFifthGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            runner.AccelerateToGearUpAndAssert();
+        }
+
+        [Fact]
+        public void HighRpmOnSixthGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            runner.AccelerateToGearUpAndAssert();
+        }
+
+        [Fact]
+        public void StayOnFirst()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void StayOnSecond()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void StayOnThird()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void StayOnFourth()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void StayOnFifth()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(5).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void StayOnSixth()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(6).Build();
+            runner.StayOnSameGearAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnFirstGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnSecondGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnThirdGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnFourthGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnFifhGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(5).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        [Fact]
+        public void LowRpmOnSixthGear()
+        {
+            var runner = new TestRunner.Builder().SetInitialS(6).Build();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
+        private class TestRunner
+        {
+            private const int rpmToGoUpOneGear = 3000;
+            private const int rpmToGoDownOneGear = 0;
+            private const int rpmToStayOnSameGear = 1000;
+
+
+            private readonly ObjectSpy _spy;
+            private readonly GearBox _gearBox;
+
+            private TestRunner()
+            {
+                _gearBox = new GearBox();
+                _spy = ObjectSpy.For(_gearBox);
+            }
+
+            private void SetInitialValueForS(int initialValue)
+            {
+                _spy.SetFieldValue("s", initialValue);
+            }
+
+            public void AccelerateToGearUpAndAssert()
+            {
+                var originalS = _spy.GetFieldValue<int>("s");
+
+                _gearBox.doit(rpmToGoUpOneGear);
+
+                var newS = _spy.GetFieldValue<int>("s");
+
+                var expectedS = Math.Min(6, originalS + 1);
+                newS.ShouldBeEquivalentTo(expectedS, "S value");
+            }
+
+            public void StayOnSameGearAndAssert()
+            {
+                var originalS = _spy.GetFieldValue<int>("s");
+
+                _gearBox.doit(rpmToStayOnSameGear);
+
+                var newS = _spy.GetFieldValue<int>("s");
+                newS.ShouldBeEquivalentTo(originalS, "S value");
+            }
+
+            public void DecelerateToGearDownAndAssert()
+            {
+                var originalS = _spy.GetFieldValue<int>("s");
+
+                _gearBox.doit(rpmToGoDownOneGear);
+
+                var newS = _spy.GetFieldValue<int>("s");
+
+                var expectedS = Math.Max(1, originalS - 1);
+                newS.ShouldBeEquivalentTo(expectedS, "S value");
+            }
+
+            public class Builder
+            {
+                private int? initialS;
+
+                public TestRunner Build()
+                {
+                    var runner = new TestRunner();
+
+                    if (initialS != null)
+                    {
+                        runner.SetInitialValueForS(initialS.Value);
+                    }
+
+                    return runner;
+                }
+
+                public Builder SetInitialS(int initialValue)
+                {
+                    initialS = initialValue;
+                    return this;
+                }
+            }
+        }
 
         private class ObjectSpy
         {
@@ -58,7 +229,13 @@ namespace TopGear.Tests
                 return new ObjectSpy(obj);
             }
 
-            public T GetField<T>(string name)
+            public T GetFieldValue<T>(string name)
+            {
+                var field = GetFieldInfo<T>(name);
+                return (T)field.GetValue(_obj);
+            }
+
+            private FieldInfo GetFieldInfo<T>(string name)
             {
                 var field = _type.GetField(name, BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -67,7 +244,13 @@ namespace TopGear.Tests
                     throw new Exception($"Type {_type} has no field {name}");
                 }
 
-                return (T)field.GetValue(_obj);
+                return field;
+            }
+
+            public void SetFieldValue<T>(string name, T value)
+            {
+                var field = GetFieldInfo<T>(name);
+                field.SetValue(_obj, value);
             }
         }
     }
