@@ -134,6 +134,34 @@ namespace TopGear.Tests
             runner.DecelerateToGearDownAndAssert();
         }
 
+        [Fact]
+        public void UpAndDownRun()
+        {
+            var runner = new TestRunner.Builder().Build();
+
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.DecelerateToGearDownAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.AccelerateToGearUpAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.StayOnSameGearAndAssert();
+            runner.DecelerateToGearDownAndAssert();
+        }
+
         private class TestRunner
         {
             private const int RpmToGoUpOneGear = 3000;
