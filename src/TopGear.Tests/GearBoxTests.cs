@@ -136,9 +136,9 @@ namespace TopGear.Tests
 
         private class TestRunner
         {
-            private const int rpmToGoUpOneGear = 3000;
-            private const int rpmToGoDownOneGear = 0;
-            private const int rpmToStayOnSameGear = 1000;
+            private const int RpmToGoUpOneGear = 3000;
+            private const int RpmToGoDownOneGear = 0;
+            private const int RpmToStayOnSameGear = 1000;
 
 
             private readonly ObjectSpy _spy;
@@ -159,7 +159,7 @@ namespace TopGear.Tests
             {
                 var originalS = _spy.GetFieldValue<int>("s");
 
-                _gearBox.doit(rpmToGoUpOneGear);
+                _gearBox.doit(RpmToGoUpOneGear);
 
                 var newS = _spy.GetFieldValue<int>("s");
 
@@ -171,7 +171,7 @@ namespace TopGear.Tests
             {
                 var originalS = _spy.GetFieldValue<int>("s");
 
-                _gearBox.doit(rpmToStayOnSameGear);
+                _gearBox.doit(RpmToStayOnSameGear);
 
                 var newS = _spy.GetFieldValue<int>("s");
                 newS.ShouldBeEquivalentTo(originalS, "S value");
@@ -181,7 +181,7 @@ namespace TopGear.Tests
             {
                 var originalS = _spy.GetFieldValue<int>("s");
 
-                _gearBox.doit(rpmToGoDownOneGear);
+                _gearBox.doit(RpmToGoDownOneGear);
 
                 var newS = _spy.GetFieldValue<int>("s");
 
@@ -191,15 +191,15 @@ namespace TopGear.Tests
 
             public class Builder
             {
-                private int? initialS;
+                private int? _initialS;
 
                 public TestRunner Build()
                 {
                     var runner = new TestRunner();
 
-                    if (initialS != null)
+                    if (_initialS != null)
                     {
-                        runner.SetInitialValueForS(initialS.Value);
+                        runner.SetInitialValueForS(_initialS.Value);
                     }
 
                     return runner;
@@ -207,7 +207,7 @@ namespace TopGear.Tests
 
                 public Builder SetInitialS(int initialValue)
                 {
-                    initialS = initialValue;
+                    _initialS = initialValue;
                     return this;
                 }
             }
@@ -231,11 +231,11 @@ namespace TopGear.Tests
 
             public T GetFieldValue<T>(string name)
             {
-                var field = GetFieldInfo<T>(name);
+                var field = GetFieldInfo(name);
                 return (T)field.GetValue(_obj);
             }
 
-            private FieldInfo GetFieldInfo<T>(string name)
+            private FieldInfo GetFieldInfo(string name)
             {
                 var field = _type.GetField(name, BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -249,7 +249,7 @@ namespace TopGear.Tests
 
             public void SetFieldValue<T>(string name, T value)
             {
-                var field = GetFieldInfo<T>(name);
+                var field = GetFieldInfo(name);
                 field.SetValue(_obj, value);
             }
         }
