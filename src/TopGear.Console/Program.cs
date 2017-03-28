@@ -11,7 +11,7 @@
 
     public class GearBox
     {
-        private int s = 0;
+        private int currentGear = 0;
 
         private const int MaxRpm = 2000;
         private const int MinRpm = 500;
@@ -21,24 +21,24 @@
 
         public void doit(int i)
         {
-            if (s > 0)
+            if (currentGear > 0)
             {
                 if (i > MaxRpm)
                 {
-                    s++;
+                    currentGear++;
                 }
                 else if (i < MinRpm)
                 {
-                    s--;
+                    currentGear--;
                 }
             }
-            if (s > MaxGear)
+            if (currentGear > MaxGear)
             {
-                s--;
+                currentGear--;
             }
-            else if (s < MinGear)
+            else if (currentGear < MinGear)
             {
-                s++;
+                currentGear++;
             }
         }
     }

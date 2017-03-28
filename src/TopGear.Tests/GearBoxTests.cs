@@ -168,7 +168,6 @@ namespace TopGear.Tests
             private const int RpmToGoDownOneGear = 0;
             private const int RpmToStayOnSameGear = 1000;
 
-
             private readonly ObjectSpy _spy;
             private readonly GearBox _gearBox;
 
@@ -178,56 +177,61 @@ namespace TopGear.Tests
                 _spy = ObjectSpy.For(_gearBox);
             }
 
-            private void SetInitialValueForS(int initialValue)
+            private void SetInitialGearValue(int initialValue)
             {
-                _spy.SetFieldValue("s", initialValue);
+                _spy.SetFieldValue("currentGear", initialValue);
+            }
+
+            private int GetCurrentGearValue()
+            {
+                return _spy.GetFieldValue<int>("currentGear");
             }
 
             public void AccelerateToGearUpAndAssert()
             {
-                var originalS = _spy.GetFieldValue<int>("s");
+                var originalS = GetCurrentGearValue();
 
                 _gearBox.doit(RpmToGoUpOneGear);
 
-                var newS = _spy.GetFieldValue<int>("s");
+                var newS = GetCurrentGearValue();
 
                 var expectedS = Math.Min(6, originalS + 1);
-                newS.ShouldBeEquivalentTo(expectedS, "S value");
+                newS.ShouldBeEquivalentTo(expectedS, "currentGear value");
             }
 
             public void StayOnSameGearAndAssert()
             {
-                var originalS = _spy.GetFieldValue<int>("s");
+                var originalS = GetCurrentGearValue();
 
                 _gearBox.doit(RpmToStayOnSameGear);
 
-                var newS = _spy.GetFieldValue<int>("s");
-                newS.ShouldBeEquivalentTo(originalS, "S value");
+                var newS = GetCurrentGearValue();
+                newS.ShouldBeEquivalentTo(originalS, "currentGear value");
             }
 
             public void DecelerateToGearDownAndAssert()
             {
-                var originalS = _spy.GetFieldValue<int>("s");
+                var originalS = GetCurrentGearValue();
 
                 _gearBox.doit(RpmToGoDownOneGear);
 
-                var newS = _spy.GetFieldValue<int>("s");
+                var newS = GetCurrentGearValue();
 
                 var expectedS = Math.Max(1, originalS - 1);
-                newS.ShouldBeEquivalentTo(expectedS, "S value");
+                newS.ShouldBeEquivalentTo(expectedS, "currentGear value");
             }
 
             public class Builder
             {
-                private int? _initialS;
+                private int? _initialGear;
 
                 public TestRunner Build()
                 {
                     var runner = new TestRunner();
 
-                    if (_initialS != null)
+                    if (_initialGear != null)
                     {
-                        runner.SetInitialValueForS(_initialS.Value);
+                        runner.SetInitialGearValue(_initialGear.Value);
                     }
 
                     return runner;
@@ -235,7 +239,7 @@ namespace TopGear.Tests
 
                 public Builder SetInitialS(int initialValue)
                 {
-                    _initialS = initialValue;
+                    _initialGear = initialValue;
                     return this;
                 }
             }
