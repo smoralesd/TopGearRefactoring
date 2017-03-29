@@ -191,7 +191,7 @@ namespace TopGear.Tests
             {
                 var originalS = GetCurrentGearValue();
 
-                _gearBox.doit(RpmToGoUpOneGear);
+                _gearBox.Update(RpmToGoUpOneGear);
 
                 var newS = GetCurrentGearValue();
 
@@ -203,7 +203,7 @@ namespace TopGear.Tests
             {
                 var originalS = GetCurrentGearValue();
 
-                _gearBox.doit(RpmToStayOnSameGear);
+                _gearBox.Update(RpmToStayOnSameGear);
 
                 var newS = GetCurrentGearValue();
                 newS.ShouldBeEquivalentTo(originalS, "currentGear value");
@@ -213,7 +213,7 @@ namespace TopGear.Tests
             {
                 var originalS = GetCurrentGearValue();
 
-                _gearBox.doit(RpmToGoDownOneGear);
+                _gearBox.Update(RpmToGoDownOneGear);
 
                 var newS = GetCurrentGearValue();
 

@@ -5,13 +5,13 @@
         public static void Main(string[] args)
         {
             var gearBox = new GearBox();
-            gearBox.doit(1000);
+            gearBox.Update(1000);
         }
     }
 
     public class GearBox
     {
-        private int currentGear = 0;
+        private int _currentGear = 0;
 
         private const int MaxRpm = 2000;
         private const int MinRpm = 500;
@@ -19,26 +19,26 @@
         private const int MaxGear = 6;
         private const int MinGear = 1;
 
-        public void doit(int i)
+        public void Update(int newRpm)
         {
-            if (currentGear > 0)
+            if (_currentGear > 0)
             {
-                if (i > MaxRpm)
+                if (newRpm > MaxRpm)
                 {
-                    currentGear++;
+                    _currentGear++;
                 }
-                else if (i < MinRpm)
+                else if (newRpm < MinRpm)
                 {
-                    currentGear--;
+                    _currentGear--;
                 }
             }
-            if (currentGear > MaxGear)
+            if (_currentGear > MaxGear)
             {
-                currentGear--;
+                _currentGear--;
             }
-            else if (currentGear < MinGear)
+            else if (_currentGear < MinGear)
             {
-                currentGear++;
+                _currentGear++;
             }
         }
     }
