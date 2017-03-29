@@ -179,12 +179,12 @@ namespace TopGear.Tests
 
             private void SetInitialGearValue(int initialValue)
             {
-                _spy.SetFieldValue("currentGear", initialValue);
+                _spy.SetFieldValue("_currentGear", initialValue);
             }
 
             private int GetCurrentGearValue()
             {
-                return _spy.GetFieldValue<int>("currentGear");
+                return _spy.GetFieldValue<int>("_currentGear");
             }
 
             public void AccelerateToGearUpAndAssert()
