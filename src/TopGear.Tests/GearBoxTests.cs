@@ -11,126 +11,126 @@ namespace TopGear.Tests
         [Fact]
         public void HighRpmOnFirstGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(1).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void HighRpmOnSecondGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(2).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void HighRpmOnThirdGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(3).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void HighRpmOnFourthGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(4).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void HighRpmOnFifthGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(4).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void HighRpmOnSixthGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(4).Build();
             runner.AccelerateToGearUpAndAssert();
         }
 
         [Fact]
         public void StayOnFirst()
         {
-            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(1).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void StayOnSecond()
         {
-            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(2).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void StayOnThird()
         {
-            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(3).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void StayOnFourth()
         {
-            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(4).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void StayOnFifth()
         {
-            var runner = new TestRunner.Builder().SetInitialS(5).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(5).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void StayOnSixth()
         {
-            var runner = new TestRunner.Builder().SetInitialS(6).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(6).Build();
             runner.StayOnSameGearAndAssert();
         }
 
         [Fact]
         public void LowRpmOnFirstGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(1).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(1).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
         [Fact]
         public void LowRpmOnSecondGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(2).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(2).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
         [Fact]
         public void LowRpmOnThirdGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(3).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(3).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
         [Fact]
         public void LowRpmOnFourthGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(4).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(4).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
         [Fact]
         public void LowRpmOnFifhGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(5).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(5).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
         [Fact]
         public void LowRpmOnSixthGear()
         {
-            var runner = new TestRunner.Builder().SetInitialS(6).Build();
+            var runner = new TestRunner.Builder().SetInitialGear(6).Build();
             runner.DecelerateToGearDownAndAssert();
         }
 
@@ -237,7 +237,7 @@ namespace TopGear.Tests
                     return runner;
                 }
 
-                public Builder SetInitialS(int initialValue)
+                public Builder SetInitialGear(int initialValue)
                 {
                     _initialGear = initialValue;
                     return this;
