@@ -173,7 +173,7 @@ namespace TopGear.Tests
 
             private TestRunner()
             {
-                _gearBox = new GearBox();
+                _gearBox = GearBoxFactory.CreateDefault(6);
                 _spy = ObjectSpy.For(_gearBox);
             }
 
