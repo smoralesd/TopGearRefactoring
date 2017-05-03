@@ -168,12 +168,14 @@ namespace TopGear.Tests
             private const int RpmToGoDownOneGear = 0;
             private const int RpmToStayOnSameGear = 1000;
 
+            private const int totalGears = 6;
+
             private readonly ObjectSpy _spy;
             private readonly GearBox _gearBox;
 
             private TestRunner()
             {
-                _gearBox = GearBoxFactory.CreateDefault(6);
+                _gearBox = GearBoxFactory.CreateDefault(totalGears);
                 _spy = ObjectSpy.For(_gearBox);
             }
 
@@ -195,7 +197,7 @@ namespace TopGear.Tests
 
                 var newS = GetCurrentGearValue();
 
-                var expectedS = Math.Min(6, originalS + 1);
+                var expectedS = Math.Min(totalGears, originalS + 1);
                 newS.ShouldBeEquivalentTo(expectedS, "currentGear value");
             }
 
