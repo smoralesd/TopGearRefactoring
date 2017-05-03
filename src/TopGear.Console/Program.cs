@@ -30,7 +30,6 @@ namespace TopGear.Console
 
     public class GearBox
     {
-        private int _currentGear;
         private Gear CurrentGear;
 
         private const int MaxRpm = 2000;
@@ -47,29 +46,9 @@ namespace TopGear.Console
         public void Update(int newRpm)
         {
             CurrentGear.Update(this, newRpm);
-
-            if (_currentGear > 0)
-            {
-                if (newRpm > MaxRpm)
-                {
-                    _currentGear++;
-                }
-                else if (newRpm < MinRpm)
-                {
-                    _currentGear--;
-                }
-            }
-            if (_currentGear > MaxGear)
-            {
-                _currentGear--;
-            }
-            else if (_currentGear < MinGear)
-            {
-                _currentGear++;
-            }
         }
 
-        private class Gear
+        public class Gear
         {
             private Gear _nextGearUp;
             private Gear _nextGearDown;

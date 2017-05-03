@@ -181,12 +181,32 @@ namespace TopGear.Tests
 
             private void SetInitialGearValue(int initialValue)
             {
-                _spy.SetFieldValue("_currentGear", initialValue);
+                if (initialValue <= 1)
+                {
+                    return;
+                }
+
+                var currentGear = _spy.GetFieldValue<GearBox.Gear>("CurrentGear");
+
+                for (var gearIndex = 2; gearIndex <= initialValue; ++gearIndex)
+                {
+                    var gearSpy = ObjectSpy.For(currentGear);
+                    var nextGear = gearSpy.GetFieldValue<GearBox.Gear>("_nextGearDown");
+
+                    if (nextGear == null)
+                    {
+                        break;
+                    }
+
+                    currentGear = nextGear;
+                }
             }
 
             private int GetCurrentGearValue()
             {
-                return _spy.GetFieldValue<int>("_currentGear");
+                var currentGear = _spy.GetFieldValue<GearBox.Gear>("CurrentGear");
+                var gearSpy = ObjectSpy.For(currentGear);
+                return gearSpy.GetFieldValue<int>("_gearNumber");
             }
 
             public void AccelerateToGearUpAndAssert()
